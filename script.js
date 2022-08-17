@@ -5,7 +5,8 @@ const sizeEl = document.querySelector('#grid-size')
 
 // global variables
 let userInput
-let defaultSize = 16;
+let defaultSize = 16
+let counter = 0
 
 function populate(size) {
     container.style.setProperty('--size', size)
@@ -54,8 +55,25 @@ function changeColors(){
     const squareDivs = document.querySelectorAll('.pixel')
     squareDivs.forEach((squareDiv) => {
         squareDiv.addEventListener('mouseover', function(e) {
-            e.target.style.backgroundColor = "black";
-        })
-    })
+            counter++
+            if (counter % 10 === 0) {
+                e.target.style.backgroundColor = "black" ;
+            } else {
+                        e.target.style.backgroundColor = rgbChange() ;
+                    }
+                })
+            })
+
+        }
+        
+function rgbChange() {
+    const rgb = ["red", "green", "yellow", "orange"]
+    color = rgb[Math.floor(Math.random()*rgb.length)]
+    return color;
 }
+
+// function hoverCount() {
+//     counter++
+//     return counter
+// }
 

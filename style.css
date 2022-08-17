@@ -7,13 +7,14 @@
 }
 body {
     min-height: 100vh;
-    margin: 30px;
     font-family: 'Baloo 2', sans-serif;
+    padding-top: 15px;
 
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
     align-items: center;
+    
 
 }
 
@@ -29,10 +30,19 @@ button, input {
     text-align: center;
 }
 
-
 .container {
+    --size: 16;
     margin-top: 20px;
-    display: flex;
+    display: grid;
+    width: 500px;
+    height: 500px;
+    grid-template-columns: repeat(var(--size), 1fr);
+    grid-template-rows: repeat(var(--size),1fr);
+    padding: 3px;
+}
+.pixel {
+    background-color: white;
+    border: 1px solid black;
 }
 
 .user-prompt{
@@ -44,6 +54,7 @@ button, input {
     font-weight: 700;
 }
 
-#create-btn, #user-input {
+#create-btn, #grid-size {
     padding: 5px 5px;
 }
+

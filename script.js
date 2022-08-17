@@ -47,7 +47,7 @@ function createNewGrid() {
     removeSquares()
     userInput = Number(document.getElementById("user-input").value)
     console.log(typeof(userInput))
-    if (userInput > 100 || !userInput || isNaN(userInput)){
+    if (userInput > 100 || !userInput){
         displayStartGrid()
         return  alert('Please enter a number between 1-100')
     }

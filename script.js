@@ -11,13 +11,15 @@ let squareDiv
 displayStartGrid();
 changeColors();
 
-//trigger create grid
+//trigger create new grid
 createBtn.addEventListener('click', start);
 
+// game functions
 function start() {
     createNewGrid();
     changeColors();
 }
+
 function changeColors(){
     const squareDivs = document.querySelectorAll('.squareDiv')
     squareDivs.forEach((squareDiv) => {
@@ -39,26 +41,30 @@ function displayStartGrid() {
                 columnDiv.appendChild(squareDiv)
             }
     }
-
 }
-//create a 16x16 grid
-// for loop to create 16 divs
+
 function createNewGrid() {
     removeSquares()
-    userInput = document.getElementById("user-input").value;
-    let size = Number(userInput)
+    userInput = Number(document.getElementById("user-input").value)
+    console.log(typeof(userInput))
+    if (userInput > 100 || !userInput || isNaN(userInput)){
+        displayStartGrid()
+        return  alert('Please enter a number between 1-100')
+    }
+    let gridSize = userInput
     console.log(userInput)
-    for (let y = 1; y <= size; y++) {
+    for (let y = 1; y <= gridSize; y++) {
         columnDiv = document.createElement("div")
         columnDiv.classList.add('columnDiv')
         container.appendChild(columnDiv)
-        for (let x = 1; x <= size; x++){
+        for (let x = 1; x <= gridSize; x++){
                 squareDiv = document.createElement("div")
                 squareDiv.classList.add(`squareDiv`)
                 applyDivStyle();
                 columnDiv.appendChild(squareDiv)
             }
     }
+
 }
 
 function removeSquares() {
@@ -68,7 +74,6 @@ function removeSquares() {
    
 }
 
-//function for div style
 function applyDivStyle() {
     squareDiv.style.display = "block"
     squareDiv.style.visibility = "visible"

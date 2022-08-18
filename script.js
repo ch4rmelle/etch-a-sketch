@@ -8,7 +8,7 @@ const funBtn = document.querySelector('#fun-btn');
 let userInput
 let defaultSize = 16
 let counter = 0
-let randomRGB = generateRGB();
+
 let brightness = 110;
 
 
@@ -21,9 +21,10 @@ function populate(size) {
     }
 }
 //display Start UI
+function startUI() {
 populate(defaultSize)
 changeBlack()
-
+}
 //trigger create new grid
 createBtn.addEventListener('click', createNewGrid);
 funBtn.addEventListener('click', changeColors);
@@ -34,7 +35,7 @@ function createNewGrid() {
     getUserInput()
     // check userinput is valid
     if (userInput > 100 || !userInput | isNaN(userInput)){
-        populate(defaultSize);
+        startUI();
         return alert('Please enter a number between 1-100')
     }
     else {
@@ -52,12 +53,12 @@ function removeSquares() {
     while(container.firstChild) {
      container.removeChild(container.firstChild)
     }
-    
  }
+
 function changeBlack() {
     const squareDivs = document.querySelectorAll('.pixel')
     squareDivs.forEach((squareDiv) => {
-        squareDiv.addEventListener('mouseover', function(e) {
+        squareDiv.addEventListener('click', function(e) {
             e.target.style.backgroundColor = "black";
         })
     })
@@ -65,8 +66,9 @@ function changeBlack() {
 
 function changeColors(){
     const squareDivs = document.querySelectorAll('.pixel')
+    let randomRGB = generateRGB();
     squareDivs.forEach((squareDiv) => {
-        squareDiv.addEventListener('mouseover', function(e) {
+        squareDiv.addEventListener('click', function(e) {
             e.target.style.backgroundColor = randomRGB
             brightness = brightness - 10
             if(brightness < 0)
@@ -77,7 +79,6 @@ function changeColors(){
             console.log(brightness)
         })
     })}
-
 function generateRGB() {
     const rgb = Math.floor(Math.random()*16777215).toString(16)
     color = "#" + rgb;
@@ -85,3 +86,4 @@ function generateRGB() {
     return color;
 }
 
+startUI();

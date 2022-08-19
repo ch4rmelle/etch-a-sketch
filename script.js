@@ -1,8 +1,6 @@
 // global variables
-const DEFAULT_SIZE = 4
-let currentColor = 'black'
+const DEFAULT_SIZE = 2
 let userColor;
-// let currentSelection;
 let userInput
 
 const container = document.querySelector(".container")
@@ -10,23 +8,47 @@ const sizeEl = document.querySelector('#grid-size')
 const gradientBtn = document.querySelector('#fun-btn')
 const clearBtn = document.querySelector('#clear-btn')
 const colorPicker = document.querySelector("#color-picker")
+const blackBtn = document.querySelector("#black-btn")
+const eraserBtn = document.querySelector("#eraser-btn")
 
 // Default Grid Set
 function startUI() {
 container.style.setProperty('--size', DEFAULT_SIZE)
 for (let i = 0; i < DEFAULT_SIZE*DEFAULT_SIZE; i++){
-    const div = document.createElement('div')
-    div.classList.add('pixel')
-    container.appendChild(div)
+    const squareDiv = document.createElement('div')
+    squareDiv.classList.add('pixel')
+    container.appendChild(squareDiv)
+    }
 }
-}
-
 //event listeners
 sizeEl.addEventListener('input', createNewGrid)
-gradientBtn.addEventListener('click', gradientEffect)
 clearBtn.addEventListener('click', clearBoard)
 colorPicker.addEventListener("input", chooseColor, false)
 colorPicker.addEventListener("change", chooseColor, false)
+
+
+let currentButton = "black";
+
+gradientBtn.addEventListener('click', () => {
+    currentButton = "gradient";
+    choice();
+    console.log(currentButton)
+})
+blackBtn.addEventListener('click', () => {
+    currentButton = "black"
+    choice();
+    console.log(currentButton)
+})
+function choice() {
+    switch(currentButton) {
+        case "gradient":
+            gradientEffect()
+            break
+        case "black":
+            changeBlack()
+            break
+    }
+}
 
 // game functions
 function populate(size) {
@@ -42,6 +64,7 @@ function createNewGrid() {
     removeSquares()
     getUserInput()
     populate(userInput)
+    changeBlack()
     return
 }
 
@@ -53,7 +76,7 @@ function getUserInput() {
 function changeBlack() {
     const squareDivs = document.querySelectorAll(".pixel")
     squareDivs.forEach((squareDiv) => {
-        squareDiv.addEventListener('mousedown', function(e) {
+        squareDiv.addEventListener('mouseover', function(e) {
             e.target.style.backgroundColor = "black";
         })
     })
@@ -64,15 +87,15 @@ function gradientEffect(){
     let randomRGB = generateRGB();
     const squareDivs = document.querySelectorAll(".pixel")
     squareDivs.forEach((squareDiv) => {
-        squareDiv.addEventListener('mousedown', function(e) {
+        squareDiv.addEventListener('mouseover', function(e) {
             e.target.style.backgroundColor = randomRGB
             brightness = brightness - 10
             if(brightness < 0)
             {
                 brightness = 100
             }
-            e.target.style.filter = `brightness(${brightness}%)`
-            console.log(brightness)
+            squareDiv.style.filter = `brightness(${brightness}%)`
+            
         })
     })}
 
@@ -80,7 +103,7 @@ function chooseColor() {
     const squareDivs = document.querySelectorAll(".pixel")
     userColor = colorPicker.value
     squareDivs.forEach((squareDiv) => {
-        squareDiv.addEventListener('mousedown', function(e){
+        squareDiv.addEventListener('mouseover', function(e){
             e.target.style.backgroundColor = userColor;
         })
     })
@@ -89,7 +112,6 @@ function chooseColor() {
 function generateRGB() {
     const rgb = Math.floor(Math.random()*16777215).toString(16)
     color = "#" + rgb;
-    console.log(color)
     return color;
 }
 
@@ -108,4 +130,3 @@ function clearBoard() {
 }))
 }
 startUI()
-changeBlack()

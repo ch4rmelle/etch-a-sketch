@@ -1,17 +1,34 @@
-// query selectors
-const container = document.querySelector(".container")
-const createBtn = document.querySelector('#create-btn')
-const sizeEl = document.querySelector('#grid-size')
-const funBtn = document.querySelector('#fun-btn');
-
 // global variables
+const DEFAULT_SIZE = 4
+let currentColor = 'black'
+let userColor;
+// let currentSelection;
 let userInput
-let defaultSize = 16
-let counter = 0
 
-let brightness = 110;
+const container = document.querySelector(".container")
+const sizeEl = document.querySelector('#grid-size')
+const gradientBtn = document.querySelector('#fun-btn')
+const clearBtn = document.querySelector('#clear-btn')
+const colorPicker = document.querySelector("#color-picker")
 
+// Default Grid Set
+function startUI() {
+container.style.setProperty('--size', DEFAULT_SIZE)
+for (let i = 0; i < DEFAULT_SIZE*DEFAULT_SIZE; i++){
+    const div = document.createElement('div')
+    div.classList.add('pixel')
+    container.appendChild(div)
+}
+}
 
+//event listeners
+sizeEl.addEventListener('input', createNewGrid)
+gradientBtn.addEventListener('click', gradientEffect)
+clearBtn.addEventListener('click', clearBoard)
+colorPicker.addEventListener("input", chooseColor, false)
+colorPicker.addEventListener("change", chooseColor, false)
+
+// game functions
 function populate(size) {
     container.style.setProperty('--size', size)
     for (let i = 0; i < size*size; i++){
@@ -20,28 +37,12 @@ function populate(size) {
         container.appendChild(div)
     }
 }
-//display Start UI
-function startUI() {
-populate(defaultSize)
-changeBlack()
-}
-//trigger create new grid
-createBtn.addEventListener('click', createNewGrid);
-funBtn.addEventListener('click', changeColors);
 
-// game functions
 function createNewGrid() {
     removeSquares()
     getUserInput()
-    // check userinput is valid
-    if (userInput > 100 || !userInput | isNaN(userInput)){
-        startUI();
-        return alert('Please enter a number between 1-100')
-    }
-    else {
-        populate(userInput)
-        changeBlack()
-    }
+    populate(userInput)
+    return
 }
 
 function getUserInput() {
@@ -49,26 +50,21 @@ function getUserInput() {
     return userInput;
 }
     
-function removeSquares() {
-    while(container.firstChild) {
-     container.removeChild(container.firstChild)
-    }
- }
-
 function changeBlack() {
-    const squareDivs = document.querySelectorAll('.pixel')
+    const squareDivs = document.querySelectorAll(".pixel")
     squareDivs.forEach((squareDiv) => {
-        squareDiv.addEventListener('click', function(e) {
+        squareDiv.addEventListener('mousedown', function(e) {
             e.target.style.backgroundColor = "black";
         })
     })
 }
 
-function changeColors(){
-    const squareDivs = document.querySelectorAll('.pixel')
+function gradientEffect(){
+    let brightness = 110;
     let randomRGB = generateRGB();
+    const squareDivs = document.querySelectorAll(".pixel")
     squareDivs.forEach((squareDiv) => {
-        squareDiv.addEventListener('click', function(e) {
+        squareDiv.addEventListener('mousedown', function(e) {
             e.target.style.backgroundColor = randomRGB
             brightness = brightness - 10
             if(brightness < 0)
@@ -79,6 +75,17 @@ function changeColors(){
             console.log(brightness)
         })
     })}
+
+function chooseColor() {
+    const squareDivs = document.querySelectorAll(".pixel")
+    userColor = colorPicker.value
+    squareDivs.forEach((squareDiv) => {
+        squareDiv.addEventListener('mousedown', function(e){
+            e.target.style.backgroundColor = userColor;
+        })
+    })
+}
+
 function generateRGB() {
     const rgb = Math.floor(Math.random()*16777215).toString(16)
     color = "#" + rgb;
@@ -86,4 +93,19 @@ function generateRGB() {
     return color;
 }
 
-startUI();
+// reset board
+function removeSquares() {
+    while(container.firstChild) {
+     container.removeChild(container.firstChild)
+    }
+ }
+
+function clearBoard() {
+    const squareDivs = document.querySelectorAll(".pixel")
+    squareDivs.forEach((squareDiv => {
+    squareDiv.style.backgroundColor = 'white'
+    squareDiv.style.filter = "brightness(100%)"
+}))
+}
+startUI()
+changeBlack()

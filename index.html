@@ -11,18 +11,19 @@
     <div class="game-title">Welcome to<span class="hdr-color"> Etch-A-Sketch</span></div>
     <div class="user-prompt">
         <div class="game-instructions">Click on the pixels to start drawing OR</div>
-        <div class="game-instructions">enter a number (1-100) to create a new grid</div>
-        <div class="up-btn-con">
-            <input type="range" min="1" max="100" value=16 id="grid-size">
-        </div>
+        <div class="game-instructions">move the slider to change pixel size</div>
+        <input type="range" min="1" max="100" value=16 id="grid-size">
+        
        
     </div>
     <div class="game-container">
         <div class="board-btns">
         <label for="color-picker">Choose a Color:</label>
         <input type="color" id="color-picker" value="#00000">
-        <button id="fun-btn">Gradient Colors</button>
-        <button id="clear-btn">Clear Board</button>
+        <button id="black-btn">Black</button>
+        <button id="fun-btn">Gradient Effect</button>
+        <button id="eraser-btn">Eraser</button>
+        <button id="clear-btn">Reset Board</button>
         </div>
         <div class="container">
         </div>

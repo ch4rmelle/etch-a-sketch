@@ -50,11 +50,11 @@ button:hover {
 .container {
     --size: 16;
     display: grid;
-    width: 450px;
-    height: 450px;
+    width: 500px;
+    height: 500px;
     grid-template-columns: repeat(var(--size), 1fr);
     grid-template-rows: repeat(var(--size),1fr);
-    border: 0.5px solid rgb(79, 79, 79);
+    border: 4px solid rgb(79, 79, 79);
 }
 
 .board-btns {
@@ -73,6 +73,7 @@ button:hover {
 
 }
 
+
 .user-prompt{
     display: flex;
     flex-direction: column;
@@ -83,9 +84,16 @@ button:hover {
     font-weight: 700;
 }
 
+#grid-size {
+    width: 100%;
+}
+
 #color-picker {
     width: 100%;
     height: 10%;
+    -webkit-appearance: none;
+    appearance: none;
+    background: #d3d3d3;
 }
 
 /* Footer */

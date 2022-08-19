@@ -1,6 +1,6 @@
 // global variables
-const DEFAULT_SIZE = 2
-let userColor;
+const DEFAULT_SIZE = 16
+let userColor
 let userInput
 
 const container = document.querySelector(".container")
@@ -19,13 +19,13 @@ for (let i = 0; i < DEFAULT_SIZE*DEFAULT_SIZE; i++){
     squareDiv.classList.add('pixel')
     container.appendChild(squareDiv)
     }
+    choice()
 }
 //event listeners
 sizeEl.addEventListener('input', createNewGrid)
 clearBtn.addEventListener('click', clearBoard)
-colorPicker.addEventListener("input", chooseColor, false)
-colorPicker.addEventListener("change", chooseColor, false)
-
+colorPicker.addEventListener("input", chooseColor)
+colorPicker.addEventListener("change", chooseColor)
 
 let currentButton = "black";
 
@@ -39,12 +39,16 @@ blackBtn.addEventListener('click', () => {
     choice();
     console.log(currentButton)
 })
+colorPicker.addEventListener('click', () => {
+    currentButton = "color"
+    console.log(currentButton)
+    choice();
+})
 eraserBtn.addEventListener('click', () => {
     currentButton = "eraser"
     console.log(currentButton)
     choice();
 })
-
 
 function choice() {
     switch(currentButton) {
@@ -56,6 +60,10 @@ function choice() {
             break
         case "eraser":
             eraser()
+            break
+        case "color":
+            console.log(currentButton)
+            chooseColor()
             break
     }
 }
@@ -114,7 +122,8 @@ function chooseColor() {
     userColor = colorPicker.value
     squareDivs.forEach((squareDiv) => {
         squareDiv.addEventListener('mouseover', function(e){
-            squareDiv.backgroundColor = userColor
+            squareDiv.style.backgroundColor = userColor
+            squareDiv.style.filter = `brightness(100%)`
         })
     })
 }
@@ -124,6 +133,7 @@ function eraser() {
     squareDivs.forEach((squareDiv) => {
         squareDiv.addEventListener('mouseover', function(e) {
             squareDiv.style.backgroundColor = "white"
+            squareDiv.style.filter = "brightness(100%)"
         })
     })
 }

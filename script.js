@@ -10,6 +10,7 @@ const clearBtn = document.querySelector('#clear-btn')
 const colorPicker = document.querySelector("#color-picker")
 const blackBtn = document.querySelector("#black-btn")
 const eraserBtn = document.querySelector("#eraser-btn")
+const output = document.querySelector("#output")
 
 // Default Grid Set
 function startUI() {
@@ -49,6 +50,10 @@ eraserBtn.addEventListener('click', () => {
     console.log(currentButton)
     choice();
 })
+
+sizeEl.oninput = function() {
+    output.innerHTML = `${sizeEl.value} x ${sizeEl.value}`
+}
 
 function choice() {
     switch(currentButton) {

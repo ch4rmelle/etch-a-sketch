@@ -39,6 +39,13 @@ blackBtn.addEventListener('click', () => {
     choice();
     console.log(currentButton)
 })
+eraserBtn.addEventListener('click', () => {
+    currentButton = "eraser"
+    console.log(currentButton)
+    choice();
+})
+
+
 function choice() {
     switch(currentButton) {
         case "gradient":
@@ -46,6 +53,9 @@ function choice() {
             break
         case "black":
             changeBlack()
+            break
+        case "eraser":
+            eraser()
             break
     }
 }
@@ -104,7 +114,16 @@ function chooseColor() {
     userColor = colorPicker.value
     squareDivs.forEach((squareDiv) => {
         squareDiv.addEventListener('mouseover', function(e){
-            e.target.style.backgroundColor = userColor;
+            squareDiv.backgroundColor = userColor
+        })
+    })
+}
+
+function eraser() {
+    const squareDivs = document.querySelectorAll('.pixel')
+    squareDivs.forEach((squareDiv) => {
+        squareDiv.addEventListener('mouseover', function(e) {
+            squareDiv.style.backgroundColor = "white"
         })
     })
 }
@@ -114,7 +133,6 @@ function generateRGB() {
     color = "#" + rgb;
     return color;
 }
-
 // reset board
 function removeSquares() {
     while(container.firstChild) {

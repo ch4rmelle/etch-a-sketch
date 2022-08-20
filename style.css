@@ -152,3 +152,27 @@ label {
     
     font-size: 18px;
 }
+
+/* THEME CLASSES*/
+.body-night {
+    background-color:rgb(48, 48, 48);
+    color: white;
+}
+
+.hdr-night {
+    color: #d44949
+}
+.left-btns-night {
+    background-color: #5d5d5d;
+    color: white;
+    border: 2px solid rgb(211, 211, 211);
+}
+.container-night {
+    border-color:rgb(0, 0, 0);
+}
+
+.lb-night {
+    background-color:rgb(42, 42, 42);
+    border: 2px solid rgb(211, 211, 211);
+    color: white;
+}

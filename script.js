@@ -14,7 +14,11 @@ const eraserBtn = document.querySelector("#eraser-btn")
 const output = document.querySelector("#output")
 const gridlinesBtn = document.querySelector('#gridlines-btn')
 const gridValueSpan = document.querySelector('#grid-value')
-
+const nightBtn = document.querySelector('#night-theme')
+const bodyEl = document.querySelector(".body")
+const headerEl = document.querySelector(".hdr-color")
+const leftEl = document.querySelector(".left-board-btns")
+const leftBtns = document.querySelectorAll(".lb")
 //Theme selectors
 
 
@@ -24,6 +28,16 @@ clearBtn.addEventListener('click', clearBoard)
 colorPicker.addEventListener("input", chooseColor)
 colorPicker.addEventListener("change", chooseColor)
 gridlinesBtn.addEventListener("click", gridlines)
+nightBtn.addEventListener("click", () => {
+    bodyEl.classList.toggle("body-night")
+    headerEl.classList.toggle("hdr-night")
+    container.classList.toggle("container-night")
+    leftEl.classList.toggle("left-btns-night")
+    for (const btn of leftBtns) {
+        btn.classList.toggle("lb-night")
+      }
+
+})
 
 let currentButton = "black";
 
@@ -143,8 +157,7 @@ function eraser() {
     const squareDivs = document.querySelectorAll('.pixel')
     squareDivs.forEach((squareDiv) => {
         squareDiv.addEventListener('mouseover', () => {
-            squareDiv.style.backgroundColor = "white"
-            squareDiv.style.filter = "brightness(100%)"
+            squareDiv.removeAttribute('style')
         })
     })
 }
@@ -159,6 +172,7 @@ function gridlines() {
             gridValueSpan.textContent = "On"
         };
     })
+
 }
 
 function generateRGB() {
@@ -177,8 +191,7 @@ function removeSquares() {
 function clearBoard() {
     const squareDivs = document.querySelectorAll(".pixel")
     squareDivs.forEach((squareDiv => {
-    squareDiv.style.backgroundColor = 'white'
-    squareDiv.style.filter = "brightness(100%)"
+    squareDiv.removeAttribute('style')
 }))
 }
 startUI()

@@ -11,22 +11,15 @@ const colorPicker = document.querySelector("#color-picker")
 const blackBtn = document.querySelector("#black-btn")
 const eraserBtn = document.querySelector("#eraser-btn")
 const output = document.querySelector("#output")
+const gridlinesBtn = document.querySelector('#gridlines-btn')
+const gridValueSpan = document.querySelector('#grid-value')
 
-// Default Grid Set
-function startUI() {
-container.style.setProperty('--size', DEFAULT_SIZE)
-for (let i = 0; i < DEFAULT_SIZE*DEFAULT_SIZE; i++){
-    const squareDiv = document.createElement('div')
-    squareDiv.classList.add('pixel')
-    container.appendChild(squareDiv)
-    }
-    choice()
-}
 //event listeners
 sizeEl.addEventListener('input', createNewGrid)
 clearBtn.addEventListener('click', clearBoard)
 colorPicker.addEventListener("input", chooseColor)
 colorPicker.addEventListener("change", chooseColor)
+gridlinesBtn.addEventListener("click", gridlines)
 
 let currentButton = "black";
 
@@ -54,6 +47,17 @@ eraserBtn.addEventListener('click', () => {
 sizeEl.oninput = function() {
     output.innerHTML = `${sizeEl.value} x ${sizeEl.value}`
 }
+
+// Default Grid Set
+function startUI() {
+    container.style.setProperty('--size', DEFAULT_SIZE)
+    for (let i = 0; i < DEFAULT_SIZE*DEFAULT_SIZE; i++){
+        const squareDiv = document.createElement('div')
+        squareDiv.classList.add('pixel')
+        container.appendChild(squareDiv)
+        }
+        choice()
+    }
 
 function choice() {
     switch(currentButton) {
@@ -87,20 +91,19 @@ function createNewGrid() {
     removeSquares()
     getUserInput()
     populate(userInput)
-    changeBlack()
-    return
+    choice()
 }
 
 function getUserInput() {
     userInput = Number(sizeEl.value);
     return userInput;
 }
-    
+
 function changeBlack() {
     const squareDivs = document.querySelectorAll(".pixel")
     squareDivs.forEach((squareDiv) => {
-        squareDiv.addEventListener('mouseover', function(e) {
-            e.target.style.backgroundColor = "black";
+        squareDiv.addEventListener('mouseover', () => {
+            squareDiv.style.backgroundColor = "black";
         })
     })
 }
@@ -110,14 +113,16 @@ function gradientEffect(){
     let randomRGB = generateRGB();
     const squareDivs = document.querySelectorAll(".pixel")
     squareDivs.forEach((squareDiv) => {
-        squareDiv.addEventListener('mouseover', function(e) {
-            e.target.style.backgroundColor = randomRGB
+        squareDiv.addEventListener('mouseover', () => {
+            squareDiv.style.backgroundColor = randomRGB
             brightness = brightness - 10
             if(brightness < 0)
             {
                 brightness = 100
             }
             squareDiv.style.filter = `brightness(${brightness}%)`
+            
+            
             
         })
     })}
@@ -126,7 +131,7 @@ function chooseColor() {
     const squareDivs = document.querySelectorAll(".pixel")
     userColor = colorPicker.value
     squareDivs.forEach((squareDiv) => {
-        squareDiv.addEventListener('mouseover', function(e){
+        squareDiv.addEventListener('mouseover', () => {
             squareDiv.style.backgroundColor = userColor
             squareDiv.style.filter = `brightness(100%)`
         })
@@ -136,11 +141,24 @@ function chooseColor() {
 function eraser() {
     const squareDivs = document.querySelectorAll('.pixel')
     squareDivs.forEach((squareDiv) => {
-        squareDiv.addEventListener('mouseover', function(e) {
+        squareDiv.addEventListener('mouseover', () => {
             squareDiv.style.backgroundColor = "white"
             squareDiv.style.filter = "brightness(100%)"
         })
     })
+}
+
+function gridlines() {
+    const squareDivs = document.querySelectorAll('.pixel')
+    squareDivs.forEach((squareDiv) => {
+        let gridShow = squareDiv.classList.toggle('pixel-clear')
+        if (gridShow) {
+            gridValueSpan.textContent = "Off"
+        } else {
+            gridValueSpan.textContent = "On"
+        };
+    })
+    
 }
 
 function generateRGB() {
@@ -148,6 +166,7 @@ function generateRGB() {
     color = "#" + rgb;
     return color;
 }
+
 // reset board
 function removeSquares() {
     while(container.firstChild) {
@@ -163,3 +182,4 @@ function clearBoard() {
 }))
 }
 startUI()
+choice()

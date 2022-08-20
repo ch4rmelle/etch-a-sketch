@@ -3,6 +3,7 @@ const DEFAULT_SIZE = 16
 let userColor
 let userInput
 
+// Game function selectors
 const container = document.querySelector(".container")
 const sizeEl = document.querySelector('#grid-size')
 const gradientBtn = document.querySelector('#fun-btn')
@@ -13,6 +14,9 @@ const eraserBtn = document.querySelector("#eraser-btn")
 const output = document.querySelector("#output")
 const gridlinesBtn = document.querySelector('#gridlines-btn')
 const gridValueSpan = document.querySelector('#grid-value')
+
+//Theme selectors
+
 
 //event listeners
 sizeEl.addEventListener('input', createNewGrid)
@@ -121,9 +125,6 @@ function gradientEffect(){
                 brightness = 100
             }
             squareDiv.style.filter = `brightness(${brightness}%)`
-            
-            
-            
         })
     })}
 
@@ -158,7 +159,6 @@ function gridlines() {
             gridValueSpan.textContent = "On"
         };
     })
-    
 }
 
 function generateRGB() {

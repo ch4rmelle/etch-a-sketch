@@ -2,6 +2,7 @@
 const DEFAULT_SIZE = 16
 let userColor
 let userInput
+let currentButton = "black";
 
 // Game function selectors
 const container = document.querySelector(".container")
@@ -19,8 +20,6 @@ const bodyEl = document.querySelector(".body")
 const headerEl = document.querySelector(".hdr-color")
 const leftEl = document.querySelector(".left-board-btns")
 const leftBtns = document.querySelectorAll(".lb")
-//Theme selectors
-
 
 //event listeners
 sizeEl.addEventListener('input', createNewGrid)
@@ -28,18 +27,7 @@ clearBtn.addEventListener('click', clearBoard)
 colorPicker.addEventListener("input", chooseColor)
 colorPicker.addEventListener("change", chooseColor)
 gridlinesBtn.addEventListener("click", gridlines)
-nightBtn.addEventListener("click", () => {
-    bodyEl.classList.toggle("body-night")
-    headerEl.classList.toggle("hdr-night")
-    container.classList.toggle("container-night")
-    leftEl.classList.toggle("left-btns-night")
-    for (const btn of leftBtns) {
-        btn.classList.toggle("lb-night")
-      }
-
-})
-
-let currentButton = "black";
+nightBtn.addEventListener("click", nightTheme)
 
 gradientBtn.addEventListener('click', () => {
     currentButton = "gradient";
@@ -67,14 +55,12 @@ sizeEl.oninput = function() {
 }
 
 // Default Grid Set
-function startUI() {
-    container.style.setProperty('--size', DEFAULT_SIZE)
-    for (let i = 0; i < DEFAULT_SIZE*DEFAULT_SIZE; i++){
-        const squareDiv = document.createElement('div')
-        squareDiv.classList.add('pixel')
-        container.appendChild(squareDiv)
-        }
-        choice()
+
+container.style.setProperty('--size', DEFAULT_SIZE)
+for (let i = 0; i < DEFAULT_SIZE*DEFAULT_SIZE; i++){
+    const squareDiv = document.createElement('div')
+    squareDiv.classList.add('pixel')
+    container.appendChild(squareDiv)
     }
 
 function choice() {
@@ -118,10 +104,12 @@ function getUserInput() {
 }
 
 function changeBlack() {
+    let mouseDown = false
     const squareDivs = document.querySelectorAll(".pixel")
     squareDivs.forEach((squareDiv) => {
-        squareDiv.addEventListener('mouseover', () => {
-            squareDiv.style.backgroundColor = "black";
+        squareDiv.addEventListener('mousedown', () => {
+            squareDiv.style.backgroundColor = "black"
+            mouseDown = true
         })
     })
 }
@@ -131,7 +119,7 @@ function gradientEffect(){
     let randomRGB = generateRGB();
     const squareDivs = document.querySelectorAll(".pixel")
     squareDivs.forEach((squareDiv) => {
-        squareDiv.addEventListener('mouseover', () => {
+        squareDiv.addEventListener('mousedown', () => {
             squareDiv.style.backgroundColor = randomRGB
             brightness = brightness - 10
             if(brightness < 0)
@@ -146,7 +134,7 @@ function chooseColor() {
     const squareDivs = document.querySelectorAll(".pixel")
     userColor = colorPicker.value
     squareDivs.forEach((squareDiv) => {
-        squareDiv.addEventListener('mouseover', () => {
+        squareDiv.addEventListener('mousedown', () => {
             squareDiv.style.backgroundColor = userColor
             squareDiv.style.filter = `brightness(100%)`
         })
@@ -156,7 +144,7 @@ function chooseColor() {
 function eraser() {
     const squareDivs = document.querySelectorAll('.pixel')
     squareDivs.forEach((squareDiv) => {
-        squareDiv.addEventListener('mouseover', () => {
+        squareDiv.addEventListener('mousedown', () => {
             squareDiv.removeAttribute('style')
         })
     })
@@ -172,7 +160,6 @@ function gridlines() {
             gridValueSpan.textContent = "On"
         };
     })
-
 }
 
 function generateRGB() {
@@ -183,9 +170,7 @@ function generateRGB() {
 
 // reset board
 function removeSquares() {
-    while(container.firstChild) {
-     container.removeChild(container.firstChild)
-    }
+    container.innerHTML = ""
  }
 
 function clearBoard() {
@@ -194,5 +179,15 @@ function clearBoard() {
     squareDiv.removeAttribute('style')
 }))
 }
-startUI()
+
+function nightTheme() {
+    bodyEl.classList.toggle("body-night")
+    headerEl.classList.toggle("hdr-night")
+    container.classList.toggle("container-night")
+    leftEl.classList.toggle("left-btns-night")
+    nightBtn.classList.toggle("lb-night")
+    for (const btn of leftBtns) {
+        btn.classList.toggle("lb-night")
+      }
+}
 choice()

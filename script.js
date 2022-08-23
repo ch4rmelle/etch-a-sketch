@@ -55,7 +55,6 @@ sizeEl.oninput = function() {
 }
 
 // Default Grid Set
-
 container.style.setProperty('--size', DEFAULT_SIZE)
 for (let i = 0; i < DEFAULT_SIZE*DEFAULT_SIZE; i++){
     const squareDiv = document.createElement('div')

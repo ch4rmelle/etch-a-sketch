@@ -7,13 +7,8 @@ let currentButton = "black";
 // Game function selectors
 const container = document.querySelector(".container")
 const sizeEl = document.querySelector('#grid-size')
-const gradientBtn = document.querySelector('#fun-btn')
-const clearBtn = document.querySelector('#clear-btn')
 const colorPicker = document.querySelector("#color-picker")
-const blackBtn = document.querySelector("#black-btn")
-const eraserBtn = document.querySelector("#eraser-btn")
 const output = document.querySelector("#output")
-const gridlinesBtn = document.querySelector('#gridlines-btn')
 const gridValueSpan = document.querySelector('#grid-value')
 const nightBtn = document.querySelector('#night-theme')
 const bodyEl = document.querySelector(".body")
@@ -23,32 +18,18 @@ const leftBtns = document.querySelectorAll(".lb")
 
 //event listeners
 sizeEl.addEventListener('input', createNewGrid)
-clearBtn.addEventListener('click', clearBoard)
 colorPicker.addEventListener("input", chooseColor)
 colorPicker.addEventListener("change", chooseColor)
-gridlinesBtn.addEventListener("click", gridlines)
 nightBtn.addEventListener("click", nightTheme)
 
-gradientBtn.addEventListener('click', () => {
-    currentButton = "gradient";
-    choice();
-    console.log(currentButton)
-})
-blackBtn.addEventListener('click', () => {
-    currentButton = "black"
-    choice();
-    console.log(currentButton)
-})
-colorPicker.addEventListener('click', () => {
-    currentButton = "color"
-    console.log(currentButton)
-    choice();
-})
-eraserBtn.addEventListener('click', () => {
-    currentButton = "eraser"
-    console.log(currentButton)
-    choice();
-})
+leftBtns.forEach((leftBtn) =>
+    {
+        leftBtn.addEventListener('click', (e) => {
+            currentButton = e.target.id
+            console.log(currentButton)
+            choice(currentButton)
+        })
+    } )
 
 sizeEl.oninput = function() {
     output.innerHTML = `${sizeEl.value} x ${sizeEl.value}`
@@ -76,6 +57,12 @@ function choice() {
         case "color":
             console.log(currentButton)
             chooseColor()
+            break
+        case "reset":
+            resetBoard()
+            break
+        case "gridlines":
+            gridlines()
             break
     }
 }
@@ -172,7 +159,7 @@ function removeSquares() {
     container.innerHTML = ""
  }
 
-function clearBoard() {
+function resetBoard() {
     const squareDivs = document.querySelectorAll(".pixel")
     squareDivs.forEach((squareDiv => {
     squareDiv.removeAttribute('style')

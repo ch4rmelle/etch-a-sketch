@@ -2,7 +2,9 @@
 const DEFAULT_SIZE = 16
 let userColor
 let userInput
-let currentButton = "black";
+let currentSelection = "color";
+let mouseDown = false;
+let drag = false;
 
 // Game function selectors
 const container = document.querySelector(".container")
@@ -25,9 +27,9 @@ nightBtn.addEventListener("click", nightTheme)
 leftBtns.forEach((leftBtn) =>
     {
         leftBtn.addEventListener('click', (e) => {
-            currentButton = e.target.id
-            console.log(currentButton)
-            choice(currentButton)
+         currentSelection = e.target.id
+            console.log(currentSelection)
+            choice(currentSelection)
         })
     } )
 
@@ -44,18 +46,18 @@ for (let i = 0; i < DEFAULT_SIZE*DEFAULT_SIZE; i++){
     }
 
 function choice() {
-    switch(currentButton) {
+    switch(currentSelection) {
         case "gradient":
             gradientEffect()
             break
-        case "black":
-            changeBlack()
-            break
+        // case "black":
+        //     changeBlack()
+        //     break
         case "eraser":
             eraser()
             break
         case "color":
-            console.log(currentButton)
+            console.log(currentSelection)
             chooseColor()
             break
         case "reset":
@@ -89,16 +91,16 @@ function getUserInput() {
     return userInput;
 }
 
-function changeBlack() {
-    let mouseDown = false
-    const squareDivs = document.querySelectorAll(".pixel")
-    squareDivs.forEach((squareDiv) => {
-        squareDiv.addEventListener('mousedown', () => {
-            squareDiv.style.backgroundColor = "black"
-            mouseDown = true
-        })
-    })
-}
+// function changeBlack() {
+    
+//     const squareDivs = document.querySelectorAll(".pixel")
+//     squareDivs.forEach((squareDiv) => {
+//         squareDiv.addEventListener('mousedown', () => {
+//             squareDiv.style.backgroundColor = "black"
+            
+//         })
+//     })
+// }
 
 function gradientEffect(){
     let brightness = 110;
@@ -147,6 +149,9 @@ function gridlines() {
         };
     })
 }
+
+
+
 
 function generateRGB() {
     const rgb = Math.floor(Math.random()*16777215).toString(16)

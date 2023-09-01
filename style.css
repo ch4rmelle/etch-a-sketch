@@ -1,5 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Baloo+2&family=Fredoka+One&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Gloria+Hallelujah&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=ADLaM+Display&display=swap');
 * {
     margin: 0;
     padding: 0;
@@ -32,7 +33,7 @@ button {
 button:hover {
     transition: background-color 0.5s ease;
     transition: border-color 0.5s ease;
-    background-color: #899fa7;
+    background-color: rgb(144, 144, 144);
     border-color: white;
     color: white;
 
@@ -42,7 +43,7 @@ label {
     text-align: center;
 }
 .game-title {
-    font-family: 'Gloria Hallelujah', sans-serif;
+    font-family: 'ADLaM Display', sans-serif;
     font-size: 40px;
     text-align: center;
 }
@@ -97,10 +98,13 @@ label {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    gap: 10px;
+    gap: 20px;
     padding: 10px;
+}
 
-    background-color: #DAEAF1;
+#lft-brd-title {
+    font-size: 20px;
+    font-weight: 600;
 }
 
 .right-board-btns {

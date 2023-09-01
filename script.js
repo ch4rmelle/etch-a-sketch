@@ -47,8 +47,8 @@ for (let i = 0; i < DEFAULT_SIZE*DEFAULT_SIZE; i++){
 
 function choice() {
     switch(currentSelection) {
-        case "gradient":
-            gradientEffect()
+        case "rainbow":
+            rainbowEffect()
             break
         // case "black":
         //     changeBlack()
@@ -102,19 +102,11 @@ function getUserInput() {
 //     })
 // }
 
-function gradientEffect(){
-    let brightness = 110;
-    let randomRGB = generateRGB();
+function rainbowEffect(){
     const squareDivs = document.querySelectorAll(".pixel")
     squareDivs.forEach((squareDiv) => {
         squareDiv.addEventListener('mousedown', () => {
-            squareDiv.style.backgroundColor = randomRGB
-            brightness = brightness - 10
-            if(brightness < 0)
-            {
-                brightness = 100
-            }
-            squareDiv.style.filter = `brightness(${brightness}%)`
+            squareDiv.style.backgroundColor = generateRGB()
         })
     })}
 

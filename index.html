@@ -10,8 +10,7 @@
 <body class="body">
     <div class="game-title"><span class="hdr-color"> Etch-A-Sketch</span></div>
     <div class="user-prompt">
-        <div class="game-instructions">Click on the pixels to start drawing OR</div>
-        <div class="game-instructions">move the slider to change the resolution</div>
+        <div class="game-instructions">Start drawing!</div>
         <div class="slider">
             <input type="range" min="1" max="100" value=16 id="grid-size">
             <p id="output">16 x 16</p>
@@ -20,7 +19,7 @@
     </div>
     <div class="game-container">
         <div class="left-board-btns">
-            <label for="color-picker">Brush color:</label>
+            <label for="color-picker"><span id="lft-brd-title">Brush color:</span></label>
             <input type="color" id="color-picker">
             <button class="lb" id="black">Black</button>
             <button class ="lb" id="gradient">Gradient</button>

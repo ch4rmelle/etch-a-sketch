@@ -2,9 +2,7 @@
 const DEFAULT_SIZE = 16
 let userColor
 let userInput
-let currentSelection = "color";
-let mouseDown = false;
-let drag = false;
+let currentButton = "black";
 
 // Game function selectors
 const container = document.querySelector(".container")
@@ -27,9 +25,9 @@ nightBtn.addEventListener("click", nightTheme)
 leftBtns.forEach((leftBtn) =>
     {
         leftBtn.addEventListener('click', (e) => {
-         currentSelection = e.target.id
-            console.log(currentSelection)
-            choice(currentSelection)
+            currentButton = e.target.id
+            console.log(currentButton)
+            choice(currentButton)
         })
     } )
 
@@ -46,18 +44,18 @@ for (let i = 0; i < DEFAULT_SIZE*DEFAULT_SIZE; i++){
     }
 
 function choice() {
-    switch(currentSelection) {
-        case "rainbow":
-            rainbowEffect()
+    switch(currentButton) {
+        case "gradient":
+            gradientEffect()
             break
-        // case "black":
-        //     changeBlack()
-        //     break
+        case "black":
+            changeBlack()
+            break
         case "eraser":
             eraser()
             break
         case "color":
-            console.log(currentSelection)
+            console.log(currentButton)
             chooseColor()
             break
         case "reset":
@@ -92,21 +90,29 @@ function getUserInput() {
 }
 
 // function changeBlack() {
-    
+//     let mouseDown = false
 //     const squareDivs = document.querySelectorAll(".pixel")
 //     squareDivs.forEach((squareDiv) => {
 //         squareDiv.addEventListener('mousedown', () => {
 //             squareDiv.style.backgroundColor = "black"
-            
+//             mouseDown = true
 //         })
 //     })
 // }
 
-function rainbowEffect(){
+function gradientEffect(){
+    let brightness = 110;
+    let randomRGB = generateRGB();
     const squareDivs = document.querySelectorAll(".pixel")
     squareDivs.forEach((squareDiv) => {
         squareDiv.addEventListener('mousedown', () => {
-            squareDiv.style.backgroundColor = generateRGB()
+            squareDiv.style.backgroundColor = randomRGB
+            brightness = brightness - 10
+            if(brightness < 0)
+            {
+                brightness = 100
+            }
+            squareDiv.style.filter = `brightness(${brightness}%)`
         })
     })}
 
@@ -141,9 +147,6 @@ function gridlines() {
         };
     })
 }
-
-
-
 
 function generateRGB() {
     const rgb = Math.floor(Math.random()*16777215).toString(16)
